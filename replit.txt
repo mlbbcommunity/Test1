@@ -1,0 +1,28 @@
+modules = ["nodejs-20"]
+
+[nix]
+channel = "stable-24_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "WhatsApp Bot Enhanced"
+
+[[workflows.workflow]]
+name = "WhatsApp Bot Enhanced"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install @whiskeysockets/baileys @hapi/boom pino pino-pretty && node index.js"
+waitForPort = 8000
+
+[deployment]
+run = ["sh", "-c", "npm install @whiskeysockets/baileys @hapi/boom pino pino-pretty && node index.js"]
